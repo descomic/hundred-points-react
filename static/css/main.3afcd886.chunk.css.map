@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/css/Game.css","webpack://src/css/App.css"],"names":[],"mappings":"AAAA,gBACE,QAAS,CACT,SACF,CAEA,aACE,OACF,CCPA,KACE,iBACF","file":"main.3afcd886.chunk.css","sourcesContent":[".game-container {\n  margin: 0;\n  padding: 0;\n}\n\n.game-header {\n  top: 1em\n}",".app {\n  text-align: center;\n}"]}
