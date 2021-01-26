@@ -2,6 +2,8 @@
 
 This is a ReactJS app that is used to count points while playing a card game.
 
+This app is published on GitHub pages: <https://descomic.github.io/hundred-points-react/>
+
 ## Stack
 
 [React Js](<https://reactjs.org/>)
