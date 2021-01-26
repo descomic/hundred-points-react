@@ -14,7 +14,7 @@ Clone the repository on your local machine:
 
 ```bash
 cd hundred-points-react
-git clone 
+git clone git@github.com:descomic/hundred-points-react.git
 ```
 
 Start the node server:
