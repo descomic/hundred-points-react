@@ -1,0 +1,6 @@
+# The code editor files
+.vscode
+.eslintcache
+
+# Node modules
+node_modules
