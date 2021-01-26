@@ -82,7 +82,7 @@ class Game extends React.Component {
           </Col>
         </Row>
         <Row noGutters>
-          <Col sm="2">
+          <Col sm="10">
             <Accordion>
               {players}
             </Accordion>

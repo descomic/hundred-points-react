@@ -59,7 +59,7 @@ class AddingPlayers extends React.Component {
           <Button type='submit'>Add</Button>
         </Form>
 
-        <LinkContainer exact to="/game">
+        <LinkContainer to="/hundred-points-react/game">
           <Button>Play</Button>
         </LinkContainer>
       </div>
