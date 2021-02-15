@@ -4,24 +4,39 @@ import Player from './Player'
 
 import '../css/Game.css'
 import sortPlayers from '../helpers/sortPlayers'
+import { Line } from 'react-chartjs-2'
 
 class Game extends React.Component {
   constructor(props) {
     super(props)
+
+    let players = props.players.slice().map((playerName) => {
+      return {
+        name: playerName,
+        color: `rgba(${Math.floor(255 * Math.random())}, ${Math.floor(255 * Math.random())}, ${Math.floor(255 * Math.random())}, 1)`,
+        score: 0,
+        newScore: 0,
+      }
+    })
+
     this.state = {
       round: 1,
-      players: props.players.map((playerName) => {
-        return {
-          name: playerName,
-          color: `rgb(${Math.floor(255 * Math.random())}, ${Math.floor(255 * Math.random())}, ${Math.floor(255 * Math.random())})`,
-          score: 0,
-          newScore: 0,
-        }
-      })
+      players: players,
+      history: players.map((player) => {
+        let value = {}
+        Object.assign(value, player)
+        value.score = []
+        delete value.newScore
+        return value
+      }),
+      chartData: { data: { labels: [], datasets: [] } }
     }
+
     this.handleNewPlayerScore = this.handleNewPlayerScore.bind(this)
     this.handleNextRound = this.handleNextRound.bind(this)
     this.renderPlayer = this.renderPlayer.bind(this)
+    this.updateHistory = this.updateHistory.bind(this)
+    this.updateChartData = this.updateChartData.bind(this)
   }
 
   handleNewPlayerScore(event, index) {
@@ -36,16 +51,61 @@ class Game extends React.Component {
   handleNextRound(event) {
     event.preventDefault()
 
+    let players = this.state.players.map((player) => {
+      return {
+        name: player.name,
+        score: player.score + player.newScore,
+        newScore: 0,
+      }
+    }).sort(sortPlayers)
+    let history = this.updateHistory(players)
+
     this.setState({
       round: this.state.round + 1,
-      players: this.state.players.map((player) => {
-        return {
-          name: player.name,
-          score: player.score + player.newScore,
-          newScore: 0,
-        }
-      }).sort(sortPlayers)
+      players: players,
+      history: history,
+      chartData: this.updateChartData(this.state.round + 1, history)
     })
+  }
+
+  /**
+   * Updates this.state.history
+   */
+  updateHistory(players) {
+    let history = this.state.history
+
+    history.forEach((player) => {
+      player.score.push(players.find(x => x.name === player.name).score)
+    })
+
+    console.log("history")
+    console.log(this.state.history)
+
+    return history
+  }
+
+  /**
+   * Updates the datasets and label of the chart
+   */
+  updateChartData(round, history) {
+    let chartData = {
+      labels: Array(round).fill().map((x, i) => i + 1),
+      datasets: history.map(player => {
+        return {
+          label: player.name,
+          fill: false,
+          backgroundColor: player.color,
+          borderColor: player.color,
+          borderWidth: 2,
+          data: player.score
+        }
+      }),
+    }
+
+    console.log("chartData")
+    console.log(this.state.chartData)
+
+    return chartData
   }
 
   renderPlayer(player, index) {
@@ -94,6 +154,25 @@ class Game extends React.Component {
                 </Accordion>
               </Col>
             </Row>
+          </Col>
+        </Row>
+
+        <Row className="mt-5">
+          <Col>
+            <Line
+              data={this.state.chartData}
+              options={{
+                title: {
+                  display: true,
+                  text: 'Evolution of the score',
+                  fontSize: 20
+                },
+                legend: {
+                  display: true,
+                  position: 'right'
+                }
+              }}
+            />
           </Col>
         </Row>
       </Container>
