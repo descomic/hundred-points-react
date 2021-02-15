@@ -10,12 +10,6 @@ This app is published on GitHub pages: <https://descomic.github.io/hundred-point
 [React Bootstrap](<https://react-bootstrap.github.io/>)
 [React Router Bootstrap](<https://github.com/react-bootstrap/react-router-bootstrap>)
 
-## Render on gh-pages
-
-```bash
-npm run deploy
-```
-
 ## How to build
 
 Clone the repository on your local machine:
