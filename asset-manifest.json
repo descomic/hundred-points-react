@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/hundred-points-react/static/css/main.3afcd886.chunk.css",
-    "main.js": "/hundred-points-react/static/js/main.5eef55c5.chunk.js",
-    "main.js.map": "/hundred-points-react/static/js/main.5eef55c5.chunk.js.map",
+    "main.js": "/hundred-points-react/static/js/main.db02b2fd.chunk.js",
+    "main.js.map": "/hundred-points-react/static/js/main.db02b2fd.chunk.js.map",
     "runtime-main.js": "/hundred-points-react/static/js/runtime-main.396ed5b7.js",
     "runtime-main.js.map": "/hundred-points-react/static/js/runtime-main.396ed5b7.js.map",
     "static/css/2.20aa2d7b.chunk.css": "/hundred-points-react/static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.627c6512.chunk.js": "/hundred-points-react/static/js/2.627c6512.chunk.js",
-    "static/js/2.627c6512.chunk.js.map": "/hundred-points-react/static/js/2.627c6512.chunk.js.map",
+    "static/js/2.955db37d.chunk.js": "/hundred-points-react/static/js/2.955db37d.chunk.js",
+    "static/js/2.955db37d.chunk.js.map": "/hundred-points-react/static/js/2.955db37d.chunk.js.map",
     "index.html": "/hundred-points-react/index.html",
     "static/css/2.20aa2d7b.chunk.css.map": "/hundred-points-react/static/css/2.20aa2d7b.chunk.css.map",
     "static/css/main.3afcd886.chunk.css.map": "/hundred-points-react/static/css/main.3afcd886.chunk.css.map",
-    "static/js/2.627c6512.chunk.js.LICENSE.txt": "/hundred-points-react/static/js/2.627c6512.chunk.js.LICENSE.txt"
+    "static/js/2.955db37d.chunk.js.LICENSE.txt": "/hundred-points-react/static/js/2.955db37d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.396ed5b7.js",
     "static/css/2.20aa2d7b.chunk.css",
-    "static/js/2.627c6512.chunk.js",
+    "static/js/2.955db37d.chunk.js",
     "static/css/main.3afcd886.chunk.css",
-    "static/js/main.5eef55c5.chunk.js"
+    "static/js/main.db02b2fd.chunk.js"
   ]
 }
