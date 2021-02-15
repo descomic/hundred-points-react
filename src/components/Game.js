@@ -78,9 +78,6 @@ class Game extends React.Component {
       player.score.push(players.find(x => x.name === player.name).score)
     })
 
-    console.log("history")
-    console.log(this.state.history)
-
     return history
   }
 
@@ -101,9 +98,6 @@ class Game extends React.Component {
         }
       }),
     }
-
-    console.log("chartData")
-    console.log(this.state.chartData)
 
     return chartData
   }
