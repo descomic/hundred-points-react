@@ -15,7 +15,7 @@ function Player({ index, name, score, newScore, handleNewPlayerScore }) {
       </Accordion.Toggle>
       <Accordion.Collapse eventKey={name}>
         <Card.Body>
-          <Form>
+          <Form onSubmit={(event) => event.preventDefault()}>
             <Form.Group as={Row}>
               <Col>
                 <Form.Label htmlFor={name} column>New Score</Form.Label>

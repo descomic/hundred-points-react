@@ -3,6 +3,7 @@ import { Accordion, Button, Col, Container, Row } from 'react-bootstrap'
 import Player from './Player'
 
 import '../css/Game.css'
+import sortPlayers from '../helpers/sortPlayers'
 
 class Game extends React.Component {
   constructor(props) {
@@ -23,14 +24,12 @@ class Game extends React.Component {
   }
 
   handleNewPlayerScore(event, index) {
-    console.log(event)
-
-    let newState = this.state
-    newState.players[index].newScore = parseInt(event.target.value)
-
-    this.setState(newState)
-
     event.preventDefault()
+
+    let players = this.state.players.slice()
+    players[index].newScore = parseInt(event.target.value === "" ? 0 : event.target.value)
+
+    this.setState({ players: players })
   }
 
   handleNextRound(event) {
@@ -51,7 +50,7 @@ class Game extends React.Component {
   renderPlayer(player, index) {
     return (
       <Player
-        key={index}
+        key={player.score + player.name}
         index={index}
         name={player.name}
         score={player.score}
@@ -63,11 +62,10 @@ class Game extends React.Component {
 
   render() {
     let players = this.state.players.map(this.renderPlayer)
-    players.sort(sortPlayers)
 
     return (
       <Container className="game-container">
-        <Row className="game-header">
+        <Row className="game-header mt-3">
           <Col>
             <h2>Round {this.state.round}</h2>
           </Col>
@@ -81,11 +79,20 @@ class Game extends React.Component {
             />
           </Col>
         </Row>
-        <Row noGutters>
-          <Col sm="10">
-            <Accordion>
-              {players}
-            </Accordion>
+        <Row noGutters className="mt-4">
+          <Col>
+            <Row className="m-auto">
+              <Col className="m-auto"><h3>Name</h3></Col>
+              <Col className="m-auto"><h3>Score</h3></Col>
+              <Col className="m-auto"><h3>Next score</h3></Col>
+            </Row>
+            <Row>
+              <Col>
+                <Accordion>
+                  {players}
+                </Accordion>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
