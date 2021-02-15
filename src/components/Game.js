@@ -65,7 +65,7 @@ class Game extends React.Component {
     let players = this.state.players.map(this.renderPlayer)
 
     return (
-      <Container className="game-container">
+      <Container>
         <Row className="game-header mt-3">
           <Col>
             <h2>Round {this.state.round}</h2>
