@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import PlayerList from './PlayerList'
 
@@ -17,7 +17,6 @@ class AddingPlayers extends React.Component {
 
   handleNameChange(event) {
     this.setState({
-      players: this.state.players,
       newPlayerName: event.target.value,
     })
   }
@@ -51,18 +50,41 @@ class AddingPlayers extends React.Component {
 
   render() {
     return (
-      <div>
-        <PlayerList players={this.state.players} />
-        <Form className='Add' onSubmit={this.handleAddPlayer}>
-          <Form.Label>Add Player: </Form.Label>
-          <Form.Control value={this.state.newPlayerName} onChange={this.handleNameChange}></Form.Control>
-          <Button type='submit'>Add</Button>
-        </Form>
+      <Container>
+        <Row xs={1} lg={2}>
+          <Col>
+            <PlayerList players={this.state.players} />
+          </Col>
 
-        <LinkContainer to="/hundred-points-react/game">
-          <Button>Play</Button>
-        </LinkContainer>
-      </div>
+          <Col>
+            <Form className='mt-3 AddForm' onSubmit={this.handleAddPlayer}>
+              <Row>
+                <Col>
+                  <Form.Label>Add Player: </Form.Label>
+                </Col>
+              </Row>
+
+              <Row className='m-4'>
+                <Col>
+                  <Form.Control value={this.state.newPlayerName} onChange={this.handleNameChange}></Form.Control>
+                </Col>
+                <Col>
+                  <Button type='submit' variant='secondary'>Add</Button>
+                </Col>
+              </Row>
+            </Form>
+
+            <Row>
+              <Col>
+                <LinkContainer to="/hundred-points-react/game">
+                  <Button variant='primary' size='lg'>Play</Button>
+                </LinkContainer>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+
+      </Container>
     )
   }
 }
