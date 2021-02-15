@@ -13,6 +13,7 @@ class Game extends React.Component {
       players: props.players.map((playerName) => {
         return {
           name: playerName,
+          color: `rgb(${Math.floor(255 * Math.random())}, ${Math.floor(255 * Math.random())}, ${Math.floor(255 * Math.random())})`,
           score: 0,
           newScore: 0,
         }
