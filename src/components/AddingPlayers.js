@@ -9,6 +9,7 @@ class AddingPlayers extends React.Component {
     this.state = {
       players: props.players,
       newPlayerName: '',
+      errorMessage: '',
     }
     this.parentHandleAddPlayer = props.parentHandleAddPlayer
     this.handleNameChange = this.handleNameChange.bind(this)
@@ -51,7 +52,13 @@ class AddingPlayers extends React.Component {
   render() {
     return (
       <Container>
-        <Row xs={1} lg={2}>
+        <Row className="mt-4">
+          <Col>
+            <h2>Preparing the game</h2>
+          </Col>
+        </Row>
+
+        <Row className="mt-4" xs={1} lg={2}>
           <Col>
             <PlayerList players={this.state.players} />
           </Col>
@@ -66,7 +73,12 @@ class AddingPlayers extends React.Component {
 
               <Row className='m-4'>
                 <Col>
-                  <Form.Control value={this.state.newPlayerName} onChange={this.handleNameChange}></Form.Control>
+                  <Form.Control
+                    value={this.state.newPlayerName}
+                    onChange={this.handleNameChange}
+                    placeholder={"Player's name"}
+                  />
+
                 </Col>
                 <Col>
                   <Button type='submit' variant='secondary'>Add</Button>
