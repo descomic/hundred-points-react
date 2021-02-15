@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Button, Col, Container, Form, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import PlayerList from './PlayerList'
 
@@ -9,25 +9,49 @@ class AddingPlayers extends React.Component {
     this.state = {
       players: props.players,
       newPlayerName: '',
-      errorMessage: '',
+      errorMessage: 'Empty name',
     }
     this.parentHandleAddPlayer = props.parentHandleAddPlayer
+    this.verifyName = this.verifyName.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleAddPlayer = this.handleAddPlayer.bind(this)
+  }
+
+  /**
+   * Returns true if the name is valid and false else.
+   * 
+   * @param {string} name 
+   */
+  verifyName(name) {
+    if (name === '') {
+      this.setState({ errorMessage: "Empty name" })
+      return false
+    }
+
+    if (this.state.players.includes(name)) {
+      this.setState({ errorMessage: "Duplicate name" })
+      return false
+    }
+
+    this.setState({ errorMessage: "" })
+    return true
   }
 
   handleNameChange(event) {
     this.setState({
       newPlayerName: event.target.value,
     })
+    this.verifyName(event.target.value)
   }
 
   handleAddPlayer(event) {
+    event.preventDefault()
+
     let newPlayersList = this.state.players.slice()
     let newPlayer = this.state.newPlayerName.slice()
 
-    if (newPlayer === '') {
-      alert("Please enter a name")
+    if (!this.verifyName(newPlayer)) {
+      alert(this.state.errorMessage)
 
     } else {
 
@@ -45,11 +69,13 @@ class AddingPlayers extends React.Component {
         })
       }
     }
-
-    event.preventDefault()
   }
 
   render() {
+    const tooltip = (
+      <Tooltip id="tooltip-add-button" show={this.state.errorMessage !== ""}>{this.state.errorMessage}</Tooltip>
+    )
+
     return (
       <Container>
         <Row className="mt-4">
@@ -81,7 +107,18 @@ class AddingPlayers extends React.Component {
 
                 </Col>
                 <Col>
-                  <Button type='submit' variant='secondary'>Add</Button>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={tooltip}
+                  >
+                    <Button
+                      type='submit'
+                      variant='secondary'
+                      disabled={this.state.errorMessage !== ""}
+                    >
+                      Add
+                  </Button>
+                  </OverlayTrigger>
                 </Col>
               </Row>
             </Form>
