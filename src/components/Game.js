@@ -44,7 +44,7 @@ class Game extends React.Component {
           score: player.score + player.newScore,
           newScore: 0,
         }
-      })
+      }).sort(sortPlayers)
     })
   }
 
@@ -63,7 +63,7 @@ class Game extends React.Component {
 
   render() {
     let players = this.state.players.map(this.renderPlayer)
-    players.sort((a, b) => b.score - a.score)
+    players.sort(sortPlayers)
 
     return (
       <Container className="game-container">
