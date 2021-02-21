@@ -15,6 +15,7 @@ class App extends React.Component {
     }
 
     this.addPlayer = this.addPlayer.bind(this)
+    this.handleDeletePlayer = this.handleDeletePlayer.bind(this)
   }
 
   addPlayer(playerName) {
@@ -27,6 +28,14 @@ class App extends React.Component {
     })
   }
 
+
+  handleDeletePlayer(event, player, callback) {
+    event.preventDefault()
+    let players = this.state.players.filter((value) => value !== player)
+    this.setState({ players: players }, callback)
+    console.log(players)
+  }
+
   render() {
     return (
       <div className="app">
@@ -37,7 +46,7 @@ class App extends React.Component {
               <Redirect to="/hundred-points-react"></Redirect>
             </Route>
             <Route exact path="/hundred-points-react">
-              <AddingPlayers players={this.state.players} parentHandleAddPlayer={this.addPlayer} />
+              <AddingPlayers players={this.state.players} parentHandleAddPlayer={this.addPlayer} handleDeletePlayer={this.handleDeletePlayer} />
             </Route>
             <Route path="/hundred-points-react/game">
               <Game players={this.state.players.slice()} />

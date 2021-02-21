@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Container, Form, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
+import { Alert, Button, Col, Container, Form, OverlayTrigger, Row, Tooltip } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import PlayerList from './PlayerList'
 
@@ -10,8 +10,10 @@ class AddingPlayers extends React.Component {
       players: props.players,
       newPlayerName: '',
       errorMessage: 'Empty name',
+      alertMessage: '',
     }
     this.parentHandleAddPlayer = props.parentHandleAddPlayer
+    this.parentHandleDeletePlayer = props.handleDeletePlayer
     this.verifyName = this.verifyName.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleAddPlayer = this.handleAddPlayer.bind(this)
@@ -74,10 +76,7 @@ class AddingPlayers extends React.Component {
 
   handleDeletePlayer(event, player) {
     event.preventDefault()
-    let players = this.state.players.filter((value) => value !== player)
-    this.setState({ players: players })
-    console.log(player)
-    console.log("deleted")
+    this.parentHandleDeletePlayer(event, player, () => this.setState({ players: this.props.players, alertMessage: `${player} deleted` }))
   }
 
   render() {
@@ -86,63 +85,72 @@ class AddingPlayers extends React.Component {
     )
 
     return (
-      <Container>
-        <Row className="mt-4">
-          <Col>
-            <h2>Preparing the game</h2>
-          </Col>
-        </Row>
+      <div>
+        <div>
+          {
+            this.state.alertMessage === '' ?
+              null
+              : <Alert variant="success" dismissible onClose={() => this.setState({ alertMessage: "" })}>{this.state.alertMessage}</Alert>
+          }
+        </div>
 
-        <Row className="mt-4" xs={1} lg={2}>
-          <Col>
-            <PlayerList players={this.state.players} handleDeletePlayer={this.handleDeletePlayer} />
-          </Col>
+        <Container>
+          <Row className="mt-4">
+            <Col>
+              <h2>Preparing the game</h2>
+            </Col>
+          </Row>
 
-          <Col>
-            <Form className='mt-3 AddForm' onSubmit={this.handleAddPlayer}>
+          <Row className="mt-4" xs={1} lg={2}>
+            <Col>
+              <PlayerList players={this.state.players} handleDeletePlayer={this.handleDeletePlayer} />
+            </Col>
+
+            <Col>
+              <Form className='mt-3 AddForm' onSubmit={this.handleAddPlayer}>
+                <Row>
+                  <Col>
+                    <Form.Label>Add Player: </Form.Label>
+                  </Col>
+                </Row>
+
+                <Row className='m-4'>
+                  <Col>
+                    <Form.Control
+                      value={this.state.newPlayerName}
+                      onChange={this.handleNameChange}
+                      placeholder={"Player's name"}
+                    />
+
+                  </Col>
+                  <Col>
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={tooltip}
+                    >
+                      <Button
+                        type='submit'
+                        variant='secondary'
+                        disabled={this.state.errorMessage !== ""}
+                      >
+                        Add
+                  </Button>
+                    </OverlayTrigger>
+                  </Col>
+                </Row>
+              </Form>
+
               <Row>
                 <Col>
-                  <Form.Label>Add Player: </Form.Label>
+                  <LinkContainer to="/hundred-points-react/game">
+                    <Button variant='primary' size='lg'>Play</Button>
+                  </LinkContainer>
                 </Col>
               </Row>
-
-              <Row className='m-4'>
-                <Col>
-                  <Form.Control
-                    value={this.state.newPlayerName}
-                    onChange={this.handleNameChange}
-                    placeholder={"Player's name"}
-                  />
-
-                </Col>
-                <Col>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={tooltip}
-                  >
-                    <Button
-                      type='submit'
-                      variant='secondary'
-                      disabled={this.state.errorMessage !== ""}
-                    >
-                      Add
-                  </Button>
-                  </OverlayTrigger>
-                </Col>
-              </Row>
-            </Form>
-
-            <Row>
-              <Col>
-                <LinkContainer to="/hundred-points-react/game">
-                  <Button variant='primary' size='lg'>Play</Button>
-                </LinkContainer>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-
-      </Container>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     )
   }
 }
