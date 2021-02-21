@@ -6,10 +6,10 @@ function PlayerList({ players, handleDeletePlayer }) {
     return (
       <ListGroup.Item key={player}>
         <Row>
-          <Col sm={10}>
+          <Col sm={10} xs={10}>
             <span>{player}</span>
           </Col>
-          <Col sm={2}>
+          <Col sm={1} xs={1}>
             <Button size="sm" variant="light" onClick={(event) => handleDeletePlayer(event, player)}>X</Button>
           </Col>
         </Row>
