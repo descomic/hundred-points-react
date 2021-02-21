@@ -15,6 +15,7 @@ class AddingPlayers extends React.Component {
     this.verifyName = this.verifyName.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleAddPlayer = this.handleAddPlayer.bind(this)
+    this.handleDeletePlayer = this.handleDeletePlayer.bind(this)
   }
 
   /**
@@ -71,6 +72,14 @@ class AddingPlayers extends React.Component {
     }
   }
 
+  handleDeletePlayer(event, player) {
+    event.preventDefault()
+    let players = this.state.players.filter((value) => value !== player)
+    this.setState({ players: players })
+    console.log(player)
+    console.log("deleted")
+  }
+
   render() {
     const tooltip = (
       <Tooltip id="tooltip-add-button" show={this.state.errorMessage !== ""}>{this.state.errorMessage}</Tooltip>
@@ -86,7 +95,7 @@ class AddingPlayers extends React.Component {
 
         <Row className="mt-4" xs={1} lg={2}>
           <Col>
-            <PlayerList players={this.state.players} />
+            <PlayerList players={this.state.players} handleDeletePlayer={this.handleDeletePlayer} />
           </Col>
 
           <Col>

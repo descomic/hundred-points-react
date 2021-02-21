@@ -1,10 +1,19 @@
 import React from 'react'
-import { ListGroup } from 'react-bootstrap'
+import { Button, Col, ListGroup, Row } from 'react-bootstrap'
 
-function PlayerList({ players }) {
+function PlayerList({ players, handleDeletePlayer }) {
   let listOfPlayers = players.map((player) => {
     return (
-      <ListGroup.Item key={player}>{player}</ListGroup.Item>
+      <ListGroup.Item key={player}>
+        <Row>
+          <Col sm={10}>
+            <span>{player}</span>
+          </Col>
+          <Col sm={2}>
+            <Button size="sm" variant="light" onClick={(event) => handleDeletePlayer(event, player)}>X</Button>
+          </Col>
+        </Row>
+      </ListGroup.Item>
     );
   });
 
