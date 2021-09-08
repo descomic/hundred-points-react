@@ -134,7 +134,7 @@ class AddingPlayers extends React.Component {
                         disabled={this.state.errorMessage !== ""}
                       >
                         Add
-                  </Button>
+                      </Button>
                     </OverlayTrigger>
                   </Col>
                 </Row>
